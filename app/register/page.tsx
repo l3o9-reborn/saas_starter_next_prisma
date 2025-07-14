@@ -3,6 +3,13 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
+import {z} from 'zod'
+
+const registerSchema = z.object({
+  name: z.string().trim().min(1,'Name is required'),
+  email:z.email('Invalid email'),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+})
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("")
@@ -15,34 +22,35 @@ export default function RegisterPage() {
     e.preventDefault()
     setError("")
 
+    const formData = { email, name, password }
+    const result = registerSchema.safeParse(formData)
+
+    if (!result.success) {
+      setError(result.error.issues[0].message) // Show first error
+      return
+    }
+
+    const { email: cleanEmail, name: cleanName, password: cleanPassword } = result.data
+
     const res = await fetch("/api/register", {
       method: "POST",
-      body: JSON.stringify({ email, name, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: cleanEmail, name: cleanName, password: cleanPassword }),
     })
 
     const data = await res.json()
-
     if (!res.ok) {
       setError(data.error || "Something went wrong")
       return
     }
 
-    // auto sign in after successful registration
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    })
-
+    await signIn("credentials", { email: cleanEmail, password: cleanPassword, redirect: false })
     router.push("/")
   }
 
   return (
     <main className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleRegister} className="w-full bg-gray-800  max-w-sm space-y-4  p-6 rounded-xl shadow-2xl shadow-gray-800">
+      <form onSubmit={handleRegister} className="w-full bg-gray-800  max-w-sm space-y-4 mx-5  p-6 rounded-xl shadow-2xl shadow-gray-800">
         <h2 className="text-xl font-semibold text-center">Register</h2>
 
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}

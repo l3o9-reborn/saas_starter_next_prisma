@@ -20,7 +20,7 @@ export default function AuthForm() {
   }
 
   return (
-    <div className="bg-gray-800 w-full max-w-sm mx-auto p-6  rounded-xl space-y-4 shadow-2xl shadow-gray-800">
+    <div className="bg-gray-800 w-full max-w-sm mx-5 md:mx-auto p-6  rounded-xl space-y-4 shadow-2xl shadow-gray-800">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Email</label>
