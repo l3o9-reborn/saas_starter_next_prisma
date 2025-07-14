@@ -19,7 +19,7 @@ A robust authentication starter kit using **Next.js 15 (App Router)**, **NextAut
 ### 1. Clone & Create Project
 
 ```bash
-npx create-next-app@latest next-prisma-neAuth-local-oauth-template --ts --no-src-dir --app
+npx create-next-app@latest next-prisma-OAuth-local-oauth-template --ts --no-src-dir --app
 cd next-prisma-neAuth-local-oauth-template
 # Copy or replace project files with this template
 npm install
@@ -88,25 +88,35 @@ You can now:
 
 ## 📁 Project Structure
 
-```bash
 .
-├── app
-│   ├── login/page.tsx         # Login UI
-│   ├── register/page.tsx      # Register UI
-│   ├── dashboard/page.tsx     # Protected page example
-│   ├── api/auth/[...nextauth]/route.ts # NextAuth config
-│   └── api/register/route.ts  # Register route
-├── components
-│   ├── AuthForm.tsx           # Login form
-│   └── Providers.tsx          # SessionProvider wrapper
-├── lib/prisma.ts              # Prisma client singleton
-├── prisma/schema.prisma       # Prisma schema
-├── .env.example               # Sample env vars
-├── README.md
-└── ...
-```
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   │   └── [...nextauth]/route.ts       # NextAuth config and API handler
+│   │   └── register/route.ts                 # User registration API route
+│   ├── dashboard/page.tsx                    # Protected dashboard page
+│   ├── login/page.tsx                        # Login page UI
+│   └── register/page.tsx                     # Registration page UI
+│
+├── components/
+│   ├── AuthForm.tsx                         # Shared login/register form component
+│   └── Providers.tsx                        # NextAuth SessionProvider wrapper
+│
+├── lib/
+│   └── prisma.ts                           # Prisma client singleton instance
+│
+├── prisma/
+│   └── schema.prisma                       # Prisma schema and data models
+│
+├── public/                                # Static assets (images, favicon, etc.)
+├── styles/                                # Global styles (optional)
+│
+├── .env.example                           # Sample environment variables file
+├── README.md                             # This documentation file
+├── package.json                          # Project dependencies and scripts
+├── tsconfig.json                         # TypeScript configuration
+└── next.config.js                        # Next.js configuration (if present)
 
----
 
 ## ✅ Features
 
