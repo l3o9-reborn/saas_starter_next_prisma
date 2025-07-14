@@ -83,7 +83,7 @@ export default function RegisterPage() {
         <button type="submit" className="w-full bg-pink-800 text-white py-2 rounded-md hover:scale-105 duration-100">
           Register
         </button>
-        <Link href='/login' className="underline">Already have a Account</Link>
+        <Link href='/login' className="underline">Already have an Account</Link>
       </form>
     </main>
   )

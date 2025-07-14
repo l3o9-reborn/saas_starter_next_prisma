@@ -8,8 +8,6 @@ import { compare } from "bcrypt"
 import {prisma} from '@/lib/prisma'
 
 
-
-
 export const authOptions: NextAuthOptions ={
     adapter: PrismaAdapter(prisma),
     session: {strategy: "jwt"},
@@ -67,7 +65,8 @@ export const authOptions: NextAuthOptions ={
             return token 
         },
         async session ({session , token}){
-            if (session.user && token.sub) (session.user as any).id = token.sub as string
+            
+            if (session.user && token.sub) session.user.id = token.sub as string
             return session
         }
     }

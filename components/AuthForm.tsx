@@ -43,7 +43,7 @@ export default function AuthForm() {
         <button className="w-full cursor-pointer bg-green-600 text-white py-2 rounded-md hover:scale-105 duration-100" type="submit">
           Sign&nbsp;In
         </button>
-        <Link href='/register' className="underline">Create a Account</Link>
+        <Link href='/register' className="underline">Create an Account</Link>
       </form>
 
       <hr />

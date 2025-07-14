@@ -9,7 +9,7 @@ export default async function Home() {
     <main className="p-10 text-center space-y-6">
       {session ? (
         <>
-          <h1 className="text-2xl">Welcome, {session.user?.email}</h1>
+          <h1 className="text-2xl">Welcome, {session.user?.name}</h1>
           <Link href="/api/auth/signout?callbackUrl=/">Sign out</Link>
         </>
       ) : (
