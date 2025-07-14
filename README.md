@@ -20,7 +20,7 @@ A robust authentication starter kit using **Next.js 15 (App Router)**, **NextAut
 
 ```bash
 npx create-next-app@latest next-prisma-OAuth-local-oauth-template --ts --no-src-dir --app
-cd next-prisma-neAuth-local-oauth-template
+cd next-prisma-OAuth-local-oauth-template
 # Copy or replace project files with this template
 npm install
 ```
