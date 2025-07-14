@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextAuth Template – Local + Google + GitHub + Facebook (Next.js 15 + Prisma)
 
-## Getting Started
+A robust authentication starter kit using **Next.js 15 (App Router)**, **NextAuth v5**, **Prisma**, and support for **local credentials**, **Google**, **GitHub**, and **Facebook OAuth**.
 
-First, run the development server:
+---
+
+## 🧱 Stack
+
+* **Framework**: Next.js 15 (App Router, TypeScript, no-src-dir)
+* **Auth**: NextAuth.js (Credentials + Google + GitHub + Facebook)
+* **Database ORM**: Prisma
+* **Database**: PostgreSQL (or change to any supported by Prisma)
+* **Styling**: Tailwind CSS (optional)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Create Project
+
+```bash
+npx create-next-app@latest next-prisma-neAuth-local-oauth-template --ts --no-src-dir --app
+cd next-prisma-neAuth-local-oauth-template
+# Copy or replace project files with this template
+npm install
+```
+
+### 2. Configure `.env`
+
+Copy the example:
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in the environment variables:
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/nextauth"
+NEXTAUTH_SECRET="yourVerySecretString"
+
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+
+GITHUB_ID=...
+GITHUB_SECRET=...
+
+FACEBOOK_CLIENT_ID=...
+FACEBOOK_CLIENT_SECRET=...
+```
+
+### 3. Set Up Prisma
+
+```bash
+npx prisma migrate dev --name init
+```
+
+To open Prisma Studio:
+
+```bash
+npx prisma studio
+```
+
+### 4. Run the App
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can now:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* Register a user via `POST /api/register`
+* Sign in at `/login` via credentials or social logins
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Local credentials login** (`email`, `password`)
+* **Google**, **GitHub**, and **Facebook** sign-in
+* Passwords are hashed with bcrypt
+* JWT sessions via NextAuth
+* Fully working protected route example (`/dashboard`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+.
+├── app
+│   ├── login/page.tsx         # Login UI
+│   ├── register/page.tsx      # Register UI
+│   ├── dashboard/page.tsx     # Protected page example
+│   ├── api/auth/[...nextauth]/route.ts # NextAuth config
+│   └── api/register/route.ts  # Register route
+├── components
+│   ├── AuthForm.tsx           # Login form
+│   └── Providers.tsx          # SessionProvider wrapper
+├── lib/prisma.ts              # Prisma client singleton
+├── prisma/schema.prisma       # Prisma schema
+├── .env.example               # Sample env vars
+├── README.md
+└── ...
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ✅ Features
+
+* App Router support (Next.js 15)
+* Local credentials registration/login
+* Social OAuth login with Google, GitHub, Facebook
+* Secure password hashing with bcrypt
+* Prisma + PostgreSQL integration
+* JWT session with custom callbacks
+* Minimal, clean, and extendable architecture
+
+---
+
+## 🛠️ Customization
+
+* Add more providers in `route.ts` under `providers[]`
+* Add user roles/permissions in the `User` model
+* Customize login/register UI in `AuthForm.tsx`
+* Add Tailwind, Shadcn/ui, or other UI kits as needed
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork, clone, or submit pull requests to improve this template.
+
+---
+
+## 📄 License
+
+MIT — use this template freely for personal or commercial projects.
