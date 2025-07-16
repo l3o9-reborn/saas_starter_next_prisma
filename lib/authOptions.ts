@@ -29,6 +29,10 @@ export const authOptions: NextAuthOptions ={
                     where:{email:credentials.email}
                 })
                 if(!user?.password) return null
+                if (!user.emailVerified) {
+                /* 👇 Custom error string we check on the client */
+                throw new Error("EmailNotVerified")
+                }
                 const match = await compare(credentials.password, user.password)
                 if(!match) return null
 
