@@ -20,5 +20,5 @@ export async function GET(req: Request) {
 
   await prisma.verificationToken.delete({ where: { token } });
 
-  return NextResponse.redirect('/login?status=verified');
+  return NextResponse.redirect(new URL('/login?status=verified', req.url));
 }
