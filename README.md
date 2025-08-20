@@ -1,3 +1,7 @@
+
+<img width="1920" height="1080" alt="saasStarter" src="https://github.com/user-attachments/assets/a030a2f3-a5d5-4093-b2ac-8c7fbf50258e" />
+
+
 # NextAuth Template – Local + Google + GitHub + Facebook (Next.js 15 + Prisma)
 
 A robust authentication starter kit using **Next.js 15 (App Router)**, **NextAuth v5**, **Prisma**, and support for **local credentials**, **Google**, **GitHub**, and **Facebook OAuth**.
