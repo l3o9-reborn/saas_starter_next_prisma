@@ -22,6 +22,11 @@ model User {
   password      String?
   role          Role      @default(USER)
 
+  // Stripe-specific
+  stripeCustomerId     String?  // to identify in Stripe
+  stripeSubscriptionId String?  // current subscription
+  subscriptionStatus   String?  // active, canceled, past_due, etc.
+
   subscriptionPlanId String?
   subscriptionPlan   SubscriptionPlan? @relation(fields: [subscriptionPlanId], references: [id], onDelete: Cascade)
 
@@ -83,15 +88,18 @@ model SubscriptionPlan {
   id        String    @id @default(uuid())
   name      String
   charge    Float
-  duration Duration @default(MONTHLY)
+  duration  Duration @default(MONTHLY)
   isActive  Boolean   @default(true)
-  currency String   @default("USD")
+  currency  String   @default("USD")
+
+  // Link to Stripe price ID
+  stripePriceId String? // Price object in Stripe
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
   features  Feature[] 
-
-  users User[]
+  users     User[]
 }
 enum Duration {
   MONTHLY

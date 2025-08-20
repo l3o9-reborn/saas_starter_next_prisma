@@ -20,7 +20,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   const { id } = await params
   try {
     const body = await request.json()
-    const { name, charge, isActive, currency, duration, features } = body
+    const { name, charge, isActive, currency, duration, features,stripePriceId } = body
     await prisma.feature.deleteMany({ where: { planId: id } })
 
 const updatedPlan = await prisma.subscriptionPlan.update({
@@ -31,6 +31,7 @@ const updatedPlan = await prisma.subscriptionPlan.update({
     currency,
     isActive,
     duration,
+    stripePriceId,
     features: {
       create: features.map((feature: string) => ({
         text: feature,

@@ -5,6 +5,8 @@ import Link from "next/link"
 export default async function Home() {
   const session = await getServerSession(authOptions)
 
+
+
   return (
     <main className="p-10 text-center space-y-6">
       {session ? (
@@ -18,6 +20,7 @@ export default async function Home() {
           <Link href="/login">Go to Login</Link>
         </>
       )}
+
     </main>
   )
 }

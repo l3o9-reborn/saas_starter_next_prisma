@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import EditPlan from './EditPlan' // make sure this path is correct
 
-interface Plan {
+export interface Plan {
   id: string
   name: string
   charge: number
   currency: string
+  stripePriceId:string
   duration: 'MONTHLY' | 'YEARLY'
   isActive: boolean
   features: { id: string; text: string }[]
@@ -78,7 +79,8 @@ function CurrentPlans({openModal}: Props) {
             >
               <div className="flex items-center flex-col justify-center p-5">
                 <h2 className="text-4xl underline">{plan.name}</h2>
-                <p>${plan.charge}/month</p>
+                <p>${plan.charge} / {plan.duration.toLowerCase()}</p>
+                <p>{plan.stripePriceId}</p>
               </div>
 
               <div className="text-left pl-5 text-sm">

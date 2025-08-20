@@ -63,21 +63,42 @@ export const authOptions: NextAuthOptions ={
 
 
     ],
-    callbacks:{
-        async jwt({token, user}){
-        if (user) {
-        token.sub = user.id
-        token.role = user.role // 👈 Add role to token
-        }
-            return token 
+   callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+            token.sub = user.id;
+            token.role = user.role;
+            token.stripeSubscriptionId = user.stripeSubscriptionId;
+            token.stripeCustomerId = user.stripeCustomerId;
+            token.subscriptionStatus = user.subscriptionStatus;
+            token.subscriptionPlanId = user.subscriptionPlanId;
+            }
+            else{
+                const dbUser = await prisma.user.findUnique({
+                                    where: { id: token.sub as string },
+                                })
+                if (dbUser) {
+                    token.role = dbUser.role;
+                    token.stripeSubscriptionId = dbUser.stripeSubscriptionId;
+                    token.stripeCustomerId = dbUser.stripeCustomerId;
+                    token.subscriptionStatus = dbUser.subscriptionStatus;
+                    token.subscriptionPlanId = dbUser.subscriptionPlanId;
+                }
+            }
+            return token;
         },
-        async session ({session , token}){
-            
-               if (session.user) {
-                session.user.id = token.sub as string
-                session.user.role = token.role as "USER" | "ADMIN"// 👈 Add role to session
-              }
-            return session
+        async session({ session, token }) {
+            // console.log("session callback token:", token);
+            if (session.user) {
+            session.user.id = token.sub as string;
+            session.user.role = token.role as "USER" | "ADMIN";
+            session.user.stripeSubscriptionId = token.stripeSubscriptionId as string | null;
+            session.user.stripeCustomerId = token.stripeCustomerId as string | null;
+            session.user.subscriptionStatus = token.subscriptionStatus as string | null;
+            session.user.subscriptionPlanId = token.subscriptionPlanId as string | null;
+            }
+            // console.log("session callback session.user:", session.user)
+            return session;
         }
     }
 }

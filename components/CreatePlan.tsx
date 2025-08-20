@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 
-interface CreatePlanProps {
+export interface CreatePlanProps {
   name: string
   charge: number
   duration: 'MONTHLY' | 'YEARLY'
   currency: string
+  stripePriceId: string
   features: string[]
 }
 
@@ -21,6 +22,7 @@ function CreatePlan({ onClose, onSuccess }: Props) {
     charge: 0,
     duration: 'MONTHLY',
     currency: 'USD',
+    stripePriceId:'',
     featureInput: '',
   })
 
@@ -41,6 +43,7 @@ function CreatePlan({ onClose, onSuccess }: Props) {
       name: plan.name,
       charge: plan.charge,
       duration: plan.duration,
+      stripePriceId: plan.stripePriceId,
       currency: plan.currency,
       features,
     }
@@ -56,7 +59,7 @@ function CreatePlan({ onClose, onSuccess }: Props) {
       if (!res.ok) throw new Error('Failed to create plan')
 
       alert('Plan created successfully!')
-      setPlan({ name: '', charge: 0, duration: 'MONTHLY', currency: 'USD', featureInput: '' })
+      setPlan({ name: '', charge: 0, duration: 'MONTHLY', currency: 'USD',stripePriceId: ' ' , featureInput: '' })
       onSuccess()
       onClose()
 
@@ -91,6 +94,14 @@ function CreatePlan({ onClose, onSuccess }: Props) {
         value={plan.charge}
         onChange={(e) => setPlan({ ...plan, charge: parseFloat(e.target.value) })}
         placeholder="Charge"
+        className="w-full mb-3 p-2 rounded border-2 border-white bg-gray-700 placeholder-gray-400 outline-none"
+      />
+      {/* stripePriceId */}
+        <input
+        type="text"
+        value={plan.stripePriceId}
+        onChange={(e) => setPlan({ ...plan, stripePriceId: e.target.value })}
+        placeholder="Stripe Price Id"
         className="w-full mb-3 p-2 rounded border-2 border-white bg-gray-700 placeholder-gray-400 outline-none"
       />
 

@@ -14,7 +14,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, charge, currency, duration, features } = body
+    const { name, charge, currency, duration, features,stripePriceId } = body
 
     const newPlan = await prisma.subscriptionPlan.create({
       data: {
@@ -22,6 +22,7 @@ export async function POST(request: Request) {
         charge,
         currency,
         duration,
+        stripePriceId,
         features: {
           create: features.map((feature: string) => ({ text: feature }))
         }
