@@ -23,8 +23,8 @@ A robust authentication starter kit using **Next.js 15 (App Router)**, **NextAut
 ### 1. Clone & Create Project
 
 ```bash
-npx create-next-app@latest next-prisma-OAuth-local-oauth-template --ts --no-src-dir --app
-cd next-prisma-OAuth-local-oauth-template
+git clone https://github.com/l3o9-reborn/saas_starter_next_prisma.git
+cd saas_starter_next_prisma
 # Copy or replace project files with this template
 npm install
 ```
